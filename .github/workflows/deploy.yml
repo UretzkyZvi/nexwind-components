@@ -57,6 +57,8 @@ jobs:
         run: ${{ env.manager }} ${{ env.command }}
 
       - name: Build project
+        env:
+          PUBLIC_URL: "https://uretzkyzvi.github.io/nexwind-components"
         run: CI=false ${{ env.runner }} build
 
       - name: Upload artifact
