@@ -14,6 +14,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      CI: false
+      PUBLIC_URL: "https://uretzkyzvi.github.io/nexwind-components"
+      REACT_APP_TMDB_API_KEY: ${{ secrets.REACT_APP_TMDB_API_KEY }}
     outputs:
       manager: ${{ steps.detect-package-manager.outputs.manager }}
       command: ${{ steps.detect-package-manager.outputs.command }}
