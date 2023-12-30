@@ -16,8 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CI: false
-      PUBLIC_URL: "https://uretzkyzvi.github.io/nexwind-components"
-      REACT_APP_TMDB_API_KEY: ${{ secrets.REACT_APP_TMDB_API_KEY }}
     outputs:
       manager: ${{ steps.detect-package-manager.outputs.manager }}
       command: ${{ steps.detect-package-manager.outputs.command }}
@@ -57,6 +55,15 @@ jobs:
       - name: Install npm at specific version
         run: npm install -g npm@latest
       
+      - name: Create env file
+        env:
+          REACT_APP_TMDB_API_KEY: ${{ secrets.REACT_APP_TMDB_API_KEY }}
+          PUBLIC_URL: "https://uretzkyzvi.github.io/nexwind-components"
+        run: |
+          touch .env
+          echo REACT_APP_TMDB_API_KEY=$REACT_APP_TMDB_API_KEY > .env
+          echo PUBLIC_URL=$PUBLIC_URL >> .env
+
       - name: Install dependencies
         run: ${{ env.manager }} ${{ env.command }}
 
