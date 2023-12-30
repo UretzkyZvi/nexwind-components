@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "https://uretzkyzvi.github.io/nexwind-components/static/css/main.6391372f.css",
-    "main.js": "https://uretzkyzvi.github.io/nexwind-components/static/js/main.60555f69.js",
+    "main.js": "https://uretzkyzvi.github.io/nexwind-components/static/js/main.db4e9173.js",
     "static/js/787.249edb65.chunk.js": "https://uretzkyzvi.github.io/nexwind-components/static/js/787.249edb65.chunk.js",
     "index.html": "https://uretzkyzvi.github.io/nexwind-components/index.html",
     "main.6391372f.css.map": "https://uretzkyzvi.github.io/nexwind-components/static/css/main.6391372f.css.map",
-    "main.60555f69.js.map": "https://uretzkyzvi.github.io/nexwind-components/static/js/main.60555f69.js.map",
+    "main.db4e9173.js.map": "https://uretzkyzvi.github.io/nexwind-components/static/js/main.db4e9173.js.map",
     "787.249edb65.chunk.js.map": "https://uretzkyzvi.github.io/nexwind-components/static/js/787.249edb65.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6391372f.css",
-    "static/js/main.60555f69.js"
+    "static/js/main.db4e9173.js"
   ]
 }
