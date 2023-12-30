@@ -1,0 +1,3 @@
+exclude:
+  - docs/ # exclude docs folder from being copied to _site
+ 
