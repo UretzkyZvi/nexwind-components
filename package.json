@@ -38,7 +38,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && npx shx cp .nojekyll build/",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -73,6 +73,7 @@
     "autoprefixer": "^10.4.16",
     "gh-pages": "^6.1.1",
     "postcss": "^8.4.32",
+    "shx": "^0.3.4",
     "tailwindcss": "^3.4.0"
   }
 }
