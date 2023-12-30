@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
-import Browser from "../components/interactive/browser";
+import Browser from "../components/browser/browser";
 import DatePicker from "../components/datepicker/DatePicker";
 import { datePickerComponentSource } from "../components/datepicker/DatePickerComponentSource";
 import MarkdownRenderer from "../components/markdown/MarkdownRenderer";
@@ -16,7 +16,7 @@ const DatePickerPage: FC<DatePickerPageProps> = ({}) => {
     }[]
   >([]);
   useEffect(() => {
-    fetch("/docs/ui/datepicker.md")
+    fetch("/nexwind-components/docs/ui/datepicker.md")
       .then((response) => response.text())
       .then((text) => setMarkdown(text));
   }, []);

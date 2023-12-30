@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
-import Browser from "../components/interactive/browser";
+import Browser from "../components/browser/browser";
 import {
   TravelDestination,
   createMockTravelDestinations,

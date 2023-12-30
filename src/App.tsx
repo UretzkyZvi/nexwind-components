@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter   as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ListViewPage from "./pages/ListViewPage";
 import FormPage from "./pages/FormPage";
@@ -17,29 +15,19 @@ interface Item {
   name: string;
 }
 function App() {
-  // useEffect(() => {
-  //   // Add classes to the html and body tags
-  //   document.documentElement.className = "h-full ";
-  //   document.body.className = "h-full bg-background dark:bg-dark-background";
-
-  //   // Optional: Clean up function to remove classes when the component unmounts
-  //   return () => {
-  //     document.documentElement.classList.remove("h-full");
-  //     document.body.classList.remove("h-full");
-  //   };
-  // }, []);
+ 
   return (
-    <Router>
+    <Router  basename="/nexwind-components">
       <Routes>
-        <Route index path="/" Component={HomePage} />
-        <Route path="/introduction" Component={IntroductionPage} />
-        <Route path="/list-view" Component={ListViewPage} />
-        <Route path="/forms" Component={FormPage} />
-        <Route path="/date-picker" Component={DatePickerPage} />
-        <Route path="/table" Component={TablePage} />
-        <Route path="/file-uploader" Component={FileUploadPage} />
-        <Route path="/contribute"  Component={ContributePage}/>
-        <Route path='/showcase/movie-browse' Component={MoviePage} />
+        <Route index path="/" element={<HomePage />} />
+        <Route path="/introduction" element={<IntroductionPage/>} />
+        <Route path="/list-view" element={<ListViewPage/>} />
+        <Route path="/forms" element={<FormPage/>} />
+        <Route path="/date-picker" element={<DatePickerPage/>} />
+        <Route path="/table" element={<TablePage/>} />
+        <Route path="/file-uploader" element={<FileUploadPage/>} />
+        <Route path="/contribute"  element={<ContributePage/>}/>
+        <Route path='/showcase/movie-browse' element={<MoviePage/>} />
         <Route path="*" element={<h1>Not Found</h1>} />
         {/* Add more routes as needed */}
       </Routes>

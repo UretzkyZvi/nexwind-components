@@ -11,7 +11,7 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ setOpenSidebar }) => {
   return (
     <>
-      <header className="shrink-0 border-b z-30 sticky top-0 bg-secondary/10   backdrop-blur-md ">
+      <header className="shrink-0 border-b z-30 sticky top-0 bg-secondary/10 backdrop-blur-md ">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex-1 flex items-center gap-2">
             <HeaderLogo />
@@ -28,7 +28,7 @@ const Header: FC<HeaderProps> = ({ setOpenSidebar }) => {
                   </li>
                   <li>
                     <a
-                      href="showcase/movie-browse"
+                      href="/nexwind-components/showcase/movie-browse"
                       className="font-medium text-primary hover:text-primary/70"
                     >
                       Showcase

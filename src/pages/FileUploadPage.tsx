@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
-import Browser from "../components/interactive/browser";
+import Browser from "../components/browser/browser";
 import FileUploadManager from "../components/file-upload/FileUploadManager";
 import Button from "../components/form/Button";
 import { FileUploadManagerComponentSource } from "../components/file-upload/FileUploadManagerComponentSource";
@@ -18,7 +18,7 @@ const FileUploadPage: FC<FileUploadPageProps> = ({}) => {
     }[]
   >([]);
   useEffect(() => {
-    fetch("/docs/ui/file-upload-manager.md")
+    fetch("/nexwind-components/docs/ui/file-upload-manager.md")
       .then((response) => response.text())
       .then((text) => setMarkdown(text));
   }, []);

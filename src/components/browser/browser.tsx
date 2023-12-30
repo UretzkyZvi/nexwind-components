@@ -55,7 +55,7 @@ const Browser: FC<BrowserProps> = ({
       body.innerHTML = "";
 
       // Fetch and inject Tailwind CSS into iframe
-      fetch("/dist/output.css") // Update this path
+      fetch("/nexwind-components/dist/output.css") // Update this path
         .then((response) => response.text())
         .then((css) => {
           const styleSheet = document.createElement("style");

@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import ListView from "../components/lists/ListView";
 import Layout from "../components/layout/Layout";
-import Browser from "../components/interactive/browser";
+import Browser from "../components/browser/browser";
 import { listViewComponentSource } from "../components/lists/listViewComponentSource";
 import { generateHouseData } from "../util/MockData";
 import FileUploadManager, { FileWithStatus } from "../components/file-upload/FileUploadManager";

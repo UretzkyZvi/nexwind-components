@@ -4,7 +4,7 @@ import Layout from "../components/layout/Layout";
 import ListView from "../components/lists/ListView";
 import { generateHouseData } from "../util/MockData";
 import { listViewComponentSource } from "../components/lists/listViewComponentSource";
-import Browser from "../components/interactive/browser";
+import Browser from "../components/browser/browser";
 
 interface ListViewPageProps {}
 
@@ -17,7 +17,7 @@ const ListViewPage: FC<ListViewPageProps> = () => {
     }[]
   >([]);
   useEffect(() => {
-    fetch("/docs/ui/list-view.md")
+    fetch("/nexwind-components/docs/ui/list-view.md")
       .then((response) => response.text())
       .then((text) => setMarkdown(text));
   }, []);

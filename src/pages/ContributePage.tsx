@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
-import Browser from "../components/interactive/browser";
+import Browser from "../components/browser/browser";
 import DatePicker from "../components/datepicker/DatePicker";
 import { datePickerComponentSource } from "../components/datepicker/DatePickerComponentSource";
 import MarkdownRenderer from "../components/markdown/MarkdownRenderer";
@@ -14,7 +14,7 @@ const ContributePage: FC = () => {
     }[]
   >([]);
   useEffect(() => {
-    fetch("/docs/contribute.md")
+    fetch("/nexwind-components/docs/contribute.md")
       .then((response) => response.text())
       .then((text) => setMarkdown(text));
   }, []);

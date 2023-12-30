@@ -1,14 +1,15 @@
 import clsx from "clsx";
 import { FC } from "react";
 
+const basePath="/nexwind-components"
 const navigationItems = [
   {
     name: "Introduction",
-    href: "/introduction",
+    href: `${basePath}/introduction`,
   },
   {
     name: "Contributing",
-    href: "/contribute",
+    href: `${basePath}/contribute`,
   },
 
   {
@@ -24,23 +25,23 @@ const navigationItems = [
 const NavigationComponents = [
   {
     name: "Forms",
-    href: "/forms",
+    href: `${basePath}/forms`,
   },
   {
     name: "Lists",
-    href: "/list-view",
+    href: `${basePath}/list-view`
   },
   {
     name: "Date Picker",
-    href: "/date-picker",
+    href: `${basePath}/date-picker`,
   },
   {
     name: "Table",
-    href: "/table",
+    href: `${basePath}/table`,
   },
   {
     name: "File Uploader",
-    href: "/file-uploader",
+    href: `${basePath}/file-uploader`,
   },
 ];
 

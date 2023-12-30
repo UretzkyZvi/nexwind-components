@@ -2,9 +2,8 @@ import { FC, useState } from "react";
 import Header from "../headers/header";
 import Navigation from "../headers/navigation";
 import HeaderLogo from "../headers/header-logo";
-import { PanelLeftOpen, PanelLeftClose } from "lucide-react";
-import ThemeToggle from "../toggles/ThemeToggle";
-import HiveInteractive from "../interactive/HiveInteractive";
+import {  PanelLeftClose } from "lucide-react";
+ 
 
 interface LayoutProps {
   children: React.ReactNode;

@@ -1,8 +1,5 @@
 import { FC, useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
-import Browser from "../components/interactive/browser";
-import DatePicker from "../components/datepicker/DatePicker";
-import { datePickerComponentSource } from "../components/datepicker/DatePickerComponentSource";
 import MarkdownRenderer from "../components/markdown/MarkdownRenderer";
 
 interface IntroductionPageProps {}
@@ -16,7 +13,7 @@ const IntroductionPage: FC<IntroductionPageProps> = ({}) => {
     }[]
   >([]);
   useEffect(() => {
-    fetch("/docs/introduction.md")
+    fetch("/nexwind-components/docs/introduction.md")
       .then((response) => response.text())
       .then((text) => setMarkdown(text));
   }, []);

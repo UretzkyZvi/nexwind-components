@@ -3,7 +3,7 @@ import ReactMarkdown, { Components } from "react-markdown";
 import gfm from "remark-gfm";
 import "github-markdown-css";
 import "../../styles/markdown.css";
-import CustomScroll from "react-custom-scroll";
+
 interface MarkdownProps {
   markdownText: string;
   onLinksFounded?: (links: { id: string; text: string }[]) => void;
