@@ -9,9 +9,9 @@ const useResponsiveWidth = () => {
 
   const setMobileSize = () => setWidth(MOBILE_WIDTH);
   const setTabletSize = () => setWidth(TABLET_WIDTH);
-  
+  const setDesktopSize = () => setWidth(DESKTOP_WIDTH);
 
-  return { width, setMobileSize, setTabletSize };
+  return { width, setMobileSize, setTabletSize,setDesktopSize };
 };
 
 export default useResponsiveWidth;

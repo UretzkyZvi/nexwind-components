@@ -1,6 +1,7 @@
 export const listViewComponentSource = `
 import React, { useState, useMemo } from "react";
 import Button from "../Button";
+import ReactDOM from 'react-dom/client';
 
 interface SortOptionsProps<T> {
   property: keyof T;

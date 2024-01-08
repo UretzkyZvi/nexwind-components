@@ -105,7 +105,7 @@ const FileUploadManager: FC<FileUploadManagerProps> = ({
   };
 
   return (
-    <div>
+    <>
       {isModalOpen && (
         <Modal
           onClose={() => {
@@ -170,7 +170,7 @@ const FileUploadManager: FC<FileUploadManagerProps> = ({
             </button>
           </div>
         </div>
-        <div className={clsx({ " hidden": minimized }, { "": !minimized })}>
+        <div className={clsx({ "   hidden": minimized }, { "": !minimized })}>
           <FileUploader
             ref={fileUploaderRef}
             onComplete={onComplete}
@@ -180,7 +180,7 @@ const FileUploadManager: FC<FileUploadManagerProps> = ({
           />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

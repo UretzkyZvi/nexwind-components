@@ -3,6 +3,7 @@ import ReactMarkdown, { Components } from "react-markdown";
 import gfm from "remark-gfm";
 import "github-markdown-css";
 import "../../styles/markdown.css";
+import MarkdownPreview from '@uiw/react-markdown-preview';
 
 interface MarkdownProps {
   markdownText: string;
@@ -85,16 +86,17 @@ const MarkdownRenderer: React.FC<MarkdownProps> = ({
   };
 
   return (
-    <>
-      <div className="markdown-body">
-          <ReactMarkdown
-            children={markdownText}
-            remarkPlugins={[gfm]}
-            components={customComponents}
-            className={"bg-background font-sans  "}
-          /> 
+    <div className="overflow-hidden ">
+      <div className="px-4 py-5 sm:p-6">
+            <MarkdownPreview 
+              source={markdownText} 
+              components={customComponents}
+              remarkPlugins={[gfm]}
+              className="mx-auto max-w-7xl sm:px-6 lg:px-8"
+            />
       </div>
-    </>
+      
+    </div>
   );
 };
 

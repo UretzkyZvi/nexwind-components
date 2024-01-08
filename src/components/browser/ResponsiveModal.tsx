@@ -13,7 +13,7 @@ const ResponsiveModal: React.FC<ResponsiveModalProps> = ({
 }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="h-[60dvh] md:h-[50dvh] lg:h-[40dvh] rounded-lg border-2 border-black">
+      <div className="rounded-lg border-2 border-black">
         {children}
       </div>
     </Modal>

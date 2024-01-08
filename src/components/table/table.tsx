@@ -251,7 +251,7 @@ const Table = <T extends {}>({
           </div>
         </div>
       </div>
-      <div className="max-h-[76dvh] overflow-auto ">
+      <div className=" max-h-[76dvh] overflow-auto ">
         {viewMode === "table" ? (
           <table className="min-w-full divide-y  divide-gray-200">
             <thead className="sticky top-0 bg-gray-50  ">
@@ -290,7 +290,7 @@ const Table = <T extends {}>({
             <tbody className="divide-y divide-gray-200 overflow-y-auto  bg-white">
               {sortedAndFilteredData.length > 0 ? (
                 sortedAndFilteredData.map((item, index) => (
-                  <tr key={index}>
+                  <tr key={'sorted_tr_'+index}>
                     {columns.map(({ key, render, hidden }) => (
                       <>
                         {hidden ? null : (

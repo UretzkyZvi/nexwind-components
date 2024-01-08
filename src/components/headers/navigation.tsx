@@ -43,6 +43,14 @@ const NavigationComponents = [
     name: "File Uploader",
     href: `${basePath}/file-uploader`,
   },
+  {
+    name: "Cards",
+    href: `${basePath}/cards`,
+  },
+  {
+    name: "Video Player",
+    href: `${basePath}/video-player`,
+  }
 ];
 
 const Navigation: FC = () => {

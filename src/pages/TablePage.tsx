@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Profiler, useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
 import Browser from "../components/browser/browser";
 import {
@@ -6,6 +6,9 @@ import {
   createMockTravelDestinations,
 } from "../util/MockData";
 import Table, { TableColumn } from "../components/table/table";
+import CodePreview from "@uiw/react-code-preview";
+
+import { listViewComponentSource } from "../components/lists/listViewComponentSource";
 
 const TablePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,26 +64,37 @@ const TablePage = () => {
       ),
     },
   ];
+
+  const MemoizedTable = React.memo(() => (
+    <Table<TravelDestination>
+      columns={columns}
+      data={paginatedSampleItems}
+      defaultViewMode={viewMode}
+      onViewModeChange={(viewMode) => setViewMode(viewMode)}
+      pagination={{
+        currentPage: currentPage,
+        totalPages: totalPages,
+        onPageChange: handlePageChange,
+        itemsPerPage: itemsPerPage,
+        onItemsPerPageChange: handleItemsPerPageChange,
+        itemsPerPageOptions: [10, 25, 50, 100],
+      }}
+    />
+  ));
+
   return (
     <Layout>
       <h1>Table Page</h1>
-      <Browser componentSource="" height="big">
-        <div className="p-2">
-          <Table<TravelDestination>
-            columns={columns}
-            data={paginatedSampleItems}
-            defaultViewMode={viewMode}
-            onViewModeChange={(viewMode) => setViewMode(viewMode)}
-            pagination={{
-              currentPage: currentPage,
-              totalPages: totalPages,
-              onPageChange: handlePageChange,
-              itemsPerPage: itemsPerPage,
-              onItemsPerPageChange: handleItemsPerPageChange,
-              itemsPerPageOptions: [10, 25, 50, 100],
-            }}
-          />
-        </div>
+
+      <Browser componentSource="">
+        <CodePreview
+          code={`import Button from "../components/form/Button"
+   import ReactDOM from 'react-dom/client';
+   ReactDOM.createRoot(_mount_).render(
+    <MemoizedTable />
+   );`}
+          dependencies={{ MemoizedTable }}
+        />
       </Browser>
     </Layout>
   );

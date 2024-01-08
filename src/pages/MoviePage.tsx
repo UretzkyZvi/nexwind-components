@@ -1,8 +1,6 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
 import {
   backdropBaseUrl,
-  fetchMovieImages,
   fetchMoviesByCategory,
   imageBaseUrl,
 } from "../server/tmdbService";
@@ -13,7 +11,8 @@ import { Play } from "lucide-react";
 
 const MoviePage: React.FC = () => {
   const [currentMovie, setCurrentMovie] = useState<Movie>();
-  const containerRef = useRef<HTMLDivElement>(null);
+
+  const [opacity, setOpacity] = useState(0);
   const [categories, setCategories] = useState([
     { title: "Popular", query: "popular", movies: [] },
     { title: "Top Rated", query: "top_rated", movies: [] },
@@ -48,17 +47,37 @@ const MoviePage: React.FC = () => {
     };
   }, []);
 
+  const roundToNearest5 = (num: number) => Math.round(num / 0.05) * 0.05;
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollDepth = window.screenY || document.documentElement.scrollTop;
+      const maxDepth = 100; // Opacity change within the first 100 pixels of scrolling
+      const newOpacity = Math.max(scrollDepth / maxDepth, 0); // Calculate opacity
+      setOpacity(roundToNearest5(newOpacity));
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div
-      ref={containerRef}
-      className="bg-black text-white relative w-full h-screen "
-    >
+    <div className="bg-black text-white relative w-full h-screen ">
+      <header
+        className={`sticky z-50 top-0 h-16 w-screen flex transition-all duration-300 ease-in-out bg-black bg-opacity-${Math.round(
+          opacity * 100
+        )}`}
+      >
+        <div className="px-4"></div>
+      </header>
       {currentMovie && (
         <>
           <img
             src={`${backdropBaseUrl}${currentMovie.backdrop_path}`}
             alt={currentMovie.original_title}
-            className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+            className="absolute top-0 w-full  h-full object-center object-cover lg:w-full lg:h-full"
           />
           <div className="absolute top-60 left-10 p-4 bg-black rounded-lg shadow backdrop-blur-sm backdrop-opacity-10 bg-opacity-20 ">
             <div className="flex flex-1 gap-4 justify-center items-start  ">
@@ -85,9 +104,9 @@ const MoviePage: React.FC = () => {
           </div>
         </>
       )}
-      <div
+      <main
         className={clsx(
-          "sticky -bottom-3/4 w-full min-h-screen   flex flex-col p-4  backdrop-blur-sm backdrop-brightness-50"
+          "absolute -bottom-full w-full min-h-screen   flex flex-col p-4  backdrop-blur-sm backdrop-brightness-50"
         )}
       >
         {categories.map((category, index) => (
@@ -98,7 +117,7 @@ const MoviePage: React.FC = () => {
             onMovieSelect={(m) => setCurrentMovie(m)}
           />
         ))}
-      </div>
+      </main>
     </div>
   );
 };

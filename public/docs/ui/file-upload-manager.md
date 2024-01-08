@@ -1,5 +1,4 @@
 
-# File Upload Manager Component Guide
 
 ## Introduction
 

@@ -16,11 +16,11 @@ const Tabs: React.FC<TabProps> = ({ titles, children, onTabChange }) => {
     }
   };
   return (
-    <div>
-      <div className="flex flex-1 border-b">
+    <>
+      <div className="flex border-b">
         {titles.map((title, index) => (
           <button
-            key={index}
+            key={title+index}
             className={`py-2 px-4 text-sm font-medium text-center border-b-2 
                                     ${
                                       activeTab === index
@@ -33,8 +33,8 @@ const Tabs: React.FC<TabProps> = ({ titles, children, onTabChange }) => {
           </button>
         ))}
       </div>
-      <div className="flex-1 h-full">{children[activeTab]}</div>
-    </div>
+      <div className="  h-full">{children[activeTab]}</div>
+    </>
   );
 };
 

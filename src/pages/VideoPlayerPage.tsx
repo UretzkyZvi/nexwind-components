@@ -6,10 +6,11 @@ import { generateHouseData } from "../util/MockData";
 import { listViewComponentSource } from "../components/lists/listViewComponentSource";
 import Browser from "../components/browser/browser";
 import CodePreview from "@uiw/react-code-preview";
+import VideoPlayer from "../components/video-player/video-player";
 
 interface ListViewPageProps {}
 
-const ListViewPage: FC<ListViewPageProps> = () => {
+const VideoPlayerPage: FC<ListViewPageProps> = () => {
   const [markdown, setMarkdown] = useState("");
   const [links, setLinks] = useState<
     {
@@ -32,51 +33,27 @@ const ListViewPage: FC<ListViewPageProps> = () => {
     setLinks(links);
   };
 
-  const MemorizeListView = React.memo(() => (
-    <ListView
-      items={generateHouseData(10)}
-      headers={[
-        {
-          key: "image",
-          show: false,
-          label: "Image",
-          isImage: true,
-          render: (value) => <img src={value} />,
-        },
-        {
-          key: "rooms",
-          label: "Rooms",
-          render: (value) => <span className="font-bold">{value}</span>,
-        },
-        {
-          key: "description",
-          label: "description",
-
-          render: (value) => <span>{value}</span>,
-        },
-      ]}
-      onSortChange={(sort) => console.log(sort)}
-      sortOptions={{
-        direction: "ascending",
-        property: "rooms",
-      }}
-    />
+  const MemorizeVideoPlayer = React.memo(() => (
+    <VideoPlayer src="https://kan11w.media.kan.org.il/hls/live/2105694/2105694/master.m3u8"/>
+    
   ));
 
   return (
     <Layout onThePageNavigationLinks={links}>
-      <h1>ListViewPage</h1>
+      <h1>Video Player Page</h1>
       <Browser componentSource={listViewComponentSource}>
-        <CodePreview
+        {/* <CodePreview
         theme="dark"
         className="w-2/4"
           code={`import ReactDOM from 'react-dom/client';
    ReactDOM.createRoot(_mount_).render(
- <MemorizeListView />
+ <MemorizeVideoPlayer />
    );`}
-          dependencies={{ MemorizeListView }}
+          dependencies={{ MemorizeVideoPlayer }}
         />
-      </Browser>
+      </Browser> */}
+        <VideoPlayer src="https://www.youtube.com/watch?v=Xii9_oWQ7HY"/>
+        </Browser>
       <MarkdownRenderer
         markdownText={markdown}
         onLinksFounded={onLinksFounded}
@@ -84,4 +61,4 @@ const ListViewPage: FC<ListViewPageProps> = () => {
     </Layout>
   );
 };
-export default ListViewPage;
+export default VideoPlayerPage;

@@ -4,17 +4,12 @@ import DeviceSizeControls from "./DeviceSizeControls";
 
 
 interface BrowserHeaderProps {
-  setMobileSize: () => void;
-  setTabletSize: () => void;
-  setDesktopSize: () => void;
+ 
   saved: boolean;
   copyToClipboard: () => void;
 }
 
 const BrowserHeader: React.FC<BrowserHeaderProps> = ({
-  setMobileSize,
-  setTabletSize,
-  setDesktopSize,
   saved,
   copyToClipboard,
 }) => {
@@ -28,11 +23,7 @@ const BrowserHeader: React.FC<BrowserHeaderProps> = ({
           <div className="flex items-center justify-center w-4 h-4 bg-green-500 rounded-full"></div>
         </div>
         <div className="flex flex-row items-center space-x-2">
-          <DeviceSizeControls
-            setMobileSize={setMobileSize}
-            setTabletSize={setTabletSize}
-            setDesktopSize={setDesktopSize}
-          />
+    
           <CopyToClipboardButton
             saved={saved}
             copyToClipboard={copyToClipboard}

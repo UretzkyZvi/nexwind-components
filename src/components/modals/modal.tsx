@@ -29,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-10 overflow-y-auto"
+      className="fixed inset-0 z-50 overflow-y-auto"
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
@@ -38,10 +38,10 @@ const Modal: React.FC<ModalProps> = ({
       {/* Background backdrop */}
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
-      <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div className="flex   min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
         {/* Modal panel */}
         <div
-          className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-screen-xl     sm:p-6"
+          className="relative max-w-2xl my-auto transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full    sm:p-6"
           style={{
             transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
             opacity: isOpen ? 1 : 0,

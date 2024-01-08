@@ -29,7 +29,7 @@ const IntroductionPage: FC<IntroductionPageProps> = ({}) => {
 
   return (
     <Layout onThePageNavigationLinks={links}>
-      <h1 className="text-4xl font-bold leading-6 text-primary pt-6">
+      <h1 className="text-2xl lg:text-4xl font-bold leading-6 text-primary py-6">
         Introduction to Nexwind-Components
       </h1>
       <MarkdownRenderer

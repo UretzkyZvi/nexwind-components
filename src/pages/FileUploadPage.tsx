@@ -5,11 +5,37 @@ import FileUploadManager from "../components/file-upload/FileUploadManager";
 import Button from "../components/form/Button";
 import { FileUploadManagerComponentSource } from "../components/file-upload/FileUploadManagerComponentSource";
 import MarkdownRenderer from "../components/markdown/MarkdownRenderer";
+import CodePreview from "@uiw/react-code-preview";
 
 interface FileUploadPageProps {}
 
-const FileUploadPage: FC<FileUploadPageProps> = ({}) => {
+const FileUpload = () => {
   const [isUpload, setIsUploadOpen] = useState(false);
+
+  return (
+    <div className=" w-52">
+      <Button onClick={() => setIsUploadOpen(true)}>Upload</Button>
+      <FileUploadManager
+        onComplete={(data) => {
+          console.log("onComplete", data);
+        }}
+        onUpdate={(data) => {
+          console.log("onUpdate", data);
+        }}
+        uploadEndpoint={`/api/upload`}
+        uploadOptions={{
+          mimeTypes: ["text/csv", "image/png", "image/jpeg"],
+          maxSize: 1024 * 1024 * 3, // 3 MB
+          maxFiles: 2,
+        }}
+        openFileSelector={isUpload}
+        onCloseManually={() => setIsUploadOpen(false)}
+      />
+    </div>
+  );
+};
+
+const FileUploadPage: FC<FileUploadPageProps> = ({}) => {
   const [markdown, setMarkdown] = useState("");
   const [links, setLinks] = useState<
     {
@@ -33,27 +59,28 @@ const FileUploadPage: FC<FileUploadPageProps> = ({}) => {
   };
   return (
     <Layout onThePageNavigationLinks={links}>
-      <Browser componentSource={FileUploadManagerComponentSource} height="big">
-        <>
-          <Button onClick={() => setIsUploadOpen(true)}>Upload</Button>
-          <FileUploadManager
-            onComplete={(data) => {
-              console.log("onComplete", data);
-            }}
-            onUpdate={(data) => {
-              console.log("onUpdate", data);
-            }}
-            uploadEndpoint={`/api/upload`}
-            uploadOptions={{
-              mimeTypes: ["text/csv", "image/png", "image/jpeg"],
-              maxSize: 1024 * 1024 * 3, // 3 MB
-              maxFiles: 2,
-            }}
-            openFileSelector={isUpload}
-            onCloseManually={() => setIsUploadOpen(false)}
+      <h1 className="text-2xl lg:text-4xl font-bold leading-6 text-primary py-6">
+        File Upload Manager
+      </h1>
+      <div className="relative max-w-md ml-4  sm:max-w-sm  lg:mx-auto lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl ">
+        <Browser componentSource={FileUploadManagerComponentSource}>
+          <CodePreview
+            noCode={true}
+            noScroll={true}
+            code={` 
+   import ReactDOM from 'react-dom/client';
+
+    ReactDOM.createRoot(_mount_).render(
+ <div  >
+      <FileUpload />
+  </div>
+    );
+  
+   `}
+            dependencies={{ FileUpload }}
           />
-        </>
-      </Browser>
+        </Browser>
+      </div>
       <MarkdownRenderer
         markdownText={markdown}
         onLinksFounded={(links) => onLinksFounded(links)}

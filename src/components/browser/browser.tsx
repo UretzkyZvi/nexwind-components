@@ -17,117 +17,43 @@ import ResponsiveModal from "./ResponsiveModal";
 import useClipboard from "../../hooks/useClipboard";
 import useResponsiveWidth from "../../hooks/useResponsiveWidth";
 
-const heights = {
-  small: "h-auto",
-  medium: "h-[40dvh]",
-  big: "h-[66dvh]",
-};
-
 interface BrowserProps {
   children?: React.ReactNode;
   componentSource: string;
-  height?: keyof typeof heights;
 }
 
-const Browser: FC<BrowserProps> = ({
-  children,
-  componentSource,
-  height = "big",
-}) => {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const handleResizeRef = useRef<HTMLDivElement>(null);
-  const { width, setMobileSize, setTabletSize } = useResponsiveWidth();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const Browser: FC<BrowserProps> = ({ children, componentSource }) => {
   const [tabIndex, setTabIndex] = useState(0);
-  const setDesktopSize = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    const iframe = iframeRef.current;
-    if (iframe && iframe.contentDocument) {
-      const document = iframe.contentDocument;
-      const body = document.body;
-      body.innerHTML = "";
-
-      // Fetch and inject Tailwind CSS into iframe
-      fetch("/nexwind-components/dist/output.css") // Update this path
-        .then((response) => response.text())
-        .then((css) => {
-          const styleSheet = document.createElement("style");
-          styleSheet.textContent = css;
-          document.head.appendChild(styleSheet);
-        });
-
-      const container = document.createElement("div");
-      const root = createRoot(container);
-      root.render(<>{children}</>);
-      body.appendChild(container);
-    }
-  }, [children, width, isModalOpen, tabIndex]);
+  const { saved, copyToClipboard } = useClipboard();
 
   useEffect(() => {
     Prism.highlightAll();
   }, [tabIndex]);
-  const { saved, copyToClipboard } = useClipboard();
+
   return (
-    <div
-      className={`relative  grow  rounded-lg border-2 border-black `}
-      ref={handleResizeRef}
-    >
-      {/* Header with controls */}
+    <div className={`relative grow rounded-lg border-2 border-black`}>
       <BrowserHeader
-        setMobileSize={setMobileSize}
-        setTabletSize={setTabletSize}
-        setDesktopSize={setDesktopSize}
         saved={saved}
         copyToClipboard={() => copyToClipboard(componentSource)}
       />
 
-      {/* Main content area */}
-      <div className={`${heights[height]} flex m-auto my-6 flex-1`}>
-        <div className="flex m-4 flex-1">
-          <Tabs titles={["Preview", "Code"]} onTabChange={setTabIndex}>
-            {/* Preview Tab */}
-            <div className={`${heights[height]} flex m-auto my-6 flex-1`}>
-              <div className="flex m-4 flex-1 " style={{ width  }}>
-                <iframe ref={iframeRef} className="w-full h-[calc(100%-50px)]" />
-              </div>
-            </div>
+      <div className="flex flex-col m-auto my-6 flex-grow">
+        <Tabs titles={["Preview", "Code"]} onTabChange={setTabIndex}>
+          {/* Preview Tab */}
 
-            {/* Code Tab */}
-            <CodeTab componentSource={componentSource} width={width} />
-          </Tabs>
-        </div>
-      </div>
-      <ResponsiveModal isOpen={isModalOpen} onClose={closeModal}>
-        <BrowserHeader
-          setMobileSize={setMobileSize}
-          setTabletSize={setTabletSize}
-          setDesktopSize={setDesktopSize}
-          saved={saved}
-          copyToClipboard={() => copyToClipboard(componentSource)}
-        />
-        <div className={`h-[48dvh] flex  my-2 `}>
-          <div className="flex m-4 w-full">
-            <Tabs
-              titles={["Preview", "Code"]}
-              onTabChange={(i) => setTabIndex(i)}
-            >
-              {/* Preview Tab */}
-              <div className="flex m-4 flex-1 h-full" style={{ width }}>
-                <iframe ref={iframeRef} className="w-full h-full" />
-              </div>
-              {/* Code Tab */}
-              <CodeTab componentSource={componentSource} width={width} />
-            </Tabs>
+          <div className="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-3xl">{children}</div>
           </div>
-        </div>
-      </ResponsiveModal>
+
+          {/* Code Tab */}
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-3xl">
+    
+              <CodeTab componentSource={componentSource} />
+            </div>
+          </div>
+        </Tabs>
+      </div>
     </div>
   );
 };
