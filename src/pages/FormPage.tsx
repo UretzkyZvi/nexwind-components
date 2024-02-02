@@ -57,7 +57,7 @@ const FormPage: FC<HomePageProps> = ({}) => {
             operation.
           </p>
 
-          <div className="pt-2  ">
+          <div className="flex pt-4 w-full">
             <Browser componentSource={buttonComponentSource}>
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-12 md:col-span-4">
@@ -102,7 +102,7 @@ const FormPage: FC<HomePageProps> = ({}) => {
             form, opening a dialog, canceling an action, or performing a delete
             operation.
           </p>
-          <div className="pt-2  ">
+          <div className="flex pt-4 w-full ">
             <Browser componentSource={buttonComponentSource}>
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-12 md:col-span-4">
@@ -157,7 +157,7 @@ const FormPage: FC<HomePageProps> = ({}) => {
             Context tooltips are used to provide additional information about a
             field or action.
           </p>
-          <div className="pt-2  ">
+          <div className="flex flex-col  gap-4 w-fit ">
             <Browser componentSource={contextTooltipComponentSource}>
               <div className="flex flex-col justify-around md:flex-row items-center md:justify-between gap-4">
                 <div className="m-6">
@@ -224,10 +224,12 @@ const FormPage: FC<HomePageProps> = ({}) => {
           </div>
         </div>
       </div>
-      <MarkdownRenderer
-        markdownText={markdown}
-        onLinksFounded={onLinksFounded}
-      />
+      <div className="flex w-full">
+        <MarkdownRenderer
+          markdownText={markdown}
+          onLinksFounded={onLinksFounded}
+        />
+      </div>
     </Layout>
   );
 };

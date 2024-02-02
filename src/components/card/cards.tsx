@@ -188,7 +188,7 @@ const CardWithImageBody: FC<CardWithImageBodyProps> = ({
   onClick,
 }) => {
   return (
-    <Card className={`relative w-full min-h-48 group ` + className}>
+    <Card className={`relative w-full   group ` + className}>
       <div onClick={onClick} className="hover:cursor-pointer">
         <img
           src={
@@ -196,6 +196,7 @@ const CardWithImageBody: FC<CardWithImageBodyProps> = ({
           }
           alt={imageAlt ? imageAlt : "random image"}
           className="  top-0  w-full  object-cover  group-hover:scale-125 transition-all duration-300 ease-in-out"
+          style={{ height: "200px" }}
         />
         <div className="absolute bottom-0 p-4 ">
           <div className="flex flex-col gap-4">

@@ -55,25 +55,25 @@ const CategoryRow: React.FC<CategoryRowProps> = ({
 
   useEffect(() => {
     const checkScroll = () => checkScrollPosition();
-  
+
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', checkScroll);
+      scrollContainer.addEventListener("scroll", checkScroll);
     }
-  
+
     checkScrollPosition(); // Initial check
-  
+
     return () => {
       if (scrollContainer) {
-        scrollContainer.removeEventListener('scroll', checkScroll);
+        scrollContainer.removeEventListener("scroll", checkScroll);
       }
     };
-  }, [movies]); 
+  }, [movies]);
 
   return (
-    <div className="relative">
+    <div className="relative" id={title}>
       <h2 className="text-sm sm:text-md md:text-lg font-bold mb-4">{title}</h2>
-  
+
       <div
         className="flex overflow-x-hidden space-x-4 p-4"
         ref={scrollContainerRef}
@@ -87,7 +87,7 @@ const CategoryRow: React.FC<CategoryRowProps> = ({
           />
         ))}
       </div>
-  
+
       {!isAtStart && (
         <div
           className="absolute top-0 left-0 w-16 h-full bg-black z-50 backdrop-blur-lg bg-opacity-5 group"
@@ -96,7 +96,7 @@ const CategoryRow: React.FC<CategoryRowProps> = ({
           <ChevronLeft className="w-16 h-full text-white group-hover:cursor-pointer group-active:text-black/40" />
         </div>
       )}
-  
+
       {!isAtEnd && (
         <div
           className="absolute top-0 right-0 w-16 h-full bg-black z-50 backdrop-blur-2xl bg-opacity-10 group"
@@ -107,7 +107,6 @@ const CategoryRow: React.FC<CategoryRowProps> = ({
       )}
     </div>
   );
-  
 };
 
 export default CategoryRow;

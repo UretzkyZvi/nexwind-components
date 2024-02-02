@@ -12,6 +12,8 @@ import clsx from "clsx";
 import { Play, Video } from "lucide-react";
 import Modal from "../components/modals/modal";
 import VideoPlayer from "../components/video-player/video-player";
+import { Link } from "react-router-dom";
+import HeaderLogo from "../components/headers/header-logo";
 
 type MovieVideo = {
   id: string;
@@ -92,12 +94,28 @@ const MoviePage: React.FC = () => {
   return (
     <div className="bg-black text-white relative w-full h-screen ">
       <header
-        className={`sticky z-50 top-0 h-16 w-screen flex transition-all duration-300 ease-in-out bg-black bg-opacity-${Math.round(
+        className={`sticky z-50 top-0 h-16 w-screen flex items-center justify-between transition-all duration-300 ease-in-out bg-black bg-opacity-${Math.round(
           opacity * 100
         )}`}
       >
-        <div className="px-4 inline-flex items-center text-red-500 font-bold text-lg">
-          Next Movie
+        <div className="flex items-center">
+          <div className="px-4 inline-flex items-center text-red-500 font-bold text-lg">
+            Next Movie
+          </div>
+          <div className="hidden sm:block">
+            <ul className="flex gap-4 p-4">
+              {categories.map((category, index) => (
+                <li key={index} className="hover:text-zinc-400">
+                  <a href={`#${category.title}`}>{category.title}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="px-8">
+          <Link to="/" className="px-4">
+           <HeaderLogo backgroundColor="white"/>
+          </Link>
         </div>
       </header>
       {currentMovie && (
@@ -161,9 +179,8 @@ const MoviePage: React.FC = () => {
                 movieVideos.find((x) => x.official)?.site.toLowerCase() ===
                 "youtube"
                   ? youtubeBaseUrl + movieVideos.find((x) => x.official)?.key
-                  : ""	
+                  : ""
               }
-              
             />
           )}
           <div className="text-lg font-bold leading-6">Movie Details</div>

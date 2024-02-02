@@ -22,7 +22,7 @@ const Showcase: FC = () => {
               text="Explore the movie browse page."
               onClick={()=>handleCardClick()}
               imageSrc="images/movie-browse.gif"
-              className="w-full h-full text-white bg-gray-900 rounded-lg shadow-lg"
+              className="w-full text-white bg-gray-900 rounded-lg shadow-lg"
             />
           </li>
         </ul>

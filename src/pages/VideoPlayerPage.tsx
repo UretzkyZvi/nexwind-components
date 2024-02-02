@@ -45,7 +45,11 @@ const VideoPlayerPage: FC<ListViewPageProps> = () => {
   return (
     <Layout onThePageNavigationLinks={links}>
       <div className=" flex flex-col gap-6">
-        <h1>Video Player Page</h1>
+        <h1 className="text-4xl font-bold leading-6">Video Player</h1>
+        <p className="mt-2 text-lg text-gray-500">
+          The Video Player component is used to play videos.
+        </p>
+
         <Browser componentSource={videoPlayerComponentSource}>
           <VideoPlayer src="https://www.youtube.com/watch?v=Xii9_oWQ7HY" />
         </Browser>

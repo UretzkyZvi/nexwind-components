@@ -47,7 +47,7 @@ const Browser: FC<BrowserProps> = ({ children, componentSource }) => {
 
           {/* Code Tab */}
           <div className=" px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl">
+            <div className="mx-auto  lg:max-w-3xl">
     
               <CodeTab componentSource={componentSource} />
             </div>
