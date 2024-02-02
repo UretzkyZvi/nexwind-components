@@ -1,4 +1,11 @@
-.markdown-body {
-   background-color: rgb(255, 255, 255 / var(--tw-bg-opacity)); /* Replace with your desired color */
-   padding-top: 0px;
+/* Assuming "markdown-preview" is a class applied to the container of MarkdownPreview */
+.wmde-markdown {
+  background-color: white;
+  color: black;
+}
+
+/* If "github-markdown-css" affects the styling, you may need to override it as well */
+.github-markdown-css {
+  background-color: white !important;
+  color: black !important;
 }
