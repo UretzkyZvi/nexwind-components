@@ -91,7 +91,7 @@ const MarkdownRenderer: React.FC<MarkdownProps> = ({
         source={markdownText}
         components={customComponents}
         remarkPlugins={[gfm]}
-        className="grid bg-white sm:px-6 lg:px-8"
+        className="grid z-10 sm:px-6 lg:px-8"
       />
     </div>
   );

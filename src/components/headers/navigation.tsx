@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { FC } from "react";
 
-const basePath="/nexwind-components"
+const basePath = "/nexwind-components";
 const navigationItems = [
   {
     name: "Introduction",
@@ -11,8 +11,14 @@ const navigationItems = [
     name: "Contributing",
     href: `${basePath}/contribute`,
   },
-
- 
+  {
+    name: "Showcase",
+    href: `${basePath}/showcase`,
+  },
+  {
+    name: "About Me",
+    href: `${basePath}/contact`,
+  },
 ];
 
 const NavigationComponents = [
@@ -22,7 +28,7 @@ const NavigationComponents = [
   },
   {
     name: "Lists",
-    href: `${basePath}/list-view`
+    href: `${basePath}/list-view`,
   },
   {
     name: "Date Picker",
@@ -64,9 +70,13 @@ const Navigation: FC = () => {
                 <a
                   href={item.href}
                   className={clsx(
-                    "group flex pl-4  rounded-md py-1 text-sm leading-6 font-medium text-gray-500",
+                    "group flex pl-4 rounded-md py-1 text-sm leading-6 font-medium text-gray-500",
                     "text-black   hover:underline",
-                    " dark:text-dark-text hover:dark:bg-background hover:dark:text-text"
+                    " dark:text-dark-text hover:dark:bg-background hover:dark:text-text",
+                    {
+                      "sm:hidden":
+                        item.name === "Showcase" || item.name === "About Me",
+                    }
                   )}
                 >
                   {item.name}
