@@ -42,10 +42,10 @@ const Header: FC<HeaderProps> = ({ setOpenSidebar }) => {
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href="/nexwind-components/contact"
                       className="font-medium text-primary hover:text-primary/70"
                     >
-                      Contact
+                      About Me
                     </a>
                   </li>
                 </ul>

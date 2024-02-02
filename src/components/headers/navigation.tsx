@@ -12,14 +12,7 @@ const navigationItems = [
     href: `${basePath}/contribute`,
   },
 
-  {
-    name: "Resources",
-    href: "#",
-  },
-  {
-    name: "Support",
-    href: "#",
-  },
+ 
 ];
 
 const NavigationComponents = [

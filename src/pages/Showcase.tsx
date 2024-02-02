@@ -19,9 +19,10 @@ const Showcase: FC = () => {
         <ul className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8">
           <li className="  px-8 py-10">
             <CardWithImageBody
-              text="This is a card with image body"
-              title="Card with image body"
+              text="Explore the movie browse page."
               onClick={()=>handleCardClick()}
+              imageSrc="images/movie-browse.gif"
+              className="w-full h-full text-white bg-gray-900 rounded-lg shadow-lg"
             />
           </li>
         </ul>

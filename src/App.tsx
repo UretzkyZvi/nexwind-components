@@ -12,12 +12,13 @@ import CardsPage from "./pages/CardsPage";
 import Showcase from "./pages/Showcase";
 import VideoPlayerPage from "./pages/VideoPlayerPage";
 import ImageAnnotationPage from "./pages/ImageAnnotationPage";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
     <Router basename="/nexwind-components">
       <Routes>
-        <Route index path="/" element={<HomePage />} />
+        <Route index path="/" element={<IntroductionPage />} />
         <Route path="/introduction" element={<IntroductionPage />} />
         <Route path="/list-view" element={<ListViewPage />} />
         <Route path="/forms" element={<FormPage />} />
@@ -30,7 +31,7 @@ function App() {
         <Route path="/cards" element={<CardsPage />} />
         <Route path="/showcase" element={<Showcase />} />
         <Route path="/image-annotation" element={<ImageAnnotationPage />} />
-
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<h1>Not Found</h1>} />
         {/* Add more routes as needed */}
       </Routes>

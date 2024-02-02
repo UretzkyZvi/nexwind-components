@@ -185,7 +185,7 @@ const CardWithImageBody: FC<CardWithImageBodyProps> = ({
   imageAlt,
   title,
   text,
-  onClick
+  onClick,
 }) => {
   return (
     <Card className={`relative w-full min-h-48 group ` + className}>
@@ -195,18 +195,14 @@ const CardWithImageBody: FC<CardWithImageBodyProps> = ({
             imageSrc ? imageSrc : "https://picsum.photos/seed/picsum/640/440"
           }
           alt={imageAlt ? imageAlt : "random image"}
-          className="absolute top-0  w-full h-fit object-cover  group-hover:scale-125 transition-all duration-300 ease-in-out"
+          className="  top-0  w-full  object-cover  group-hover:scale-125 transition-all duration-300 ease-in-out"
         />
         <div className="absolute bottom-0 p-4 ">
           <div className="flex flex-col gap-4">
             <div className="text-lg font-bold leading-6">
-              {title ? title : "Card with Image Body"}
+              {title ? title : ""}
             </div>
-            <div className="text-sm  ">
-              {text
-                ? text
-                : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptas?"}
-            </div>
+            <div className="text-sm  ">{text ? text : " "}</div>
           </div>
         </div>
       </div>
