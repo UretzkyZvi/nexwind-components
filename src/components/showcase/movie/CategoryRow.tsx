@@ -90,19 +90,19 @@ const CategoryRow: React.FC<CategoryRowProps> = ({
 
       {!isAtStart && (
         <div
-          className="absolute top-0 left-0 w-16 h-full bg-black z-50 backdrop-blur-lg bg-opacity-5 group"
+          className="absolute top-0 left-0 w-8 sm:w-16 h-full bg-black z-50 backdrop-blur-lg bg-opacity-5 group"
           onClick={scrollLeft}
         >
-          <ChevronLeft className="w-16 h-full text-white group-hover:cursor-pointer group-active:text-black/40" />
+          <ChevronLeft className="w-8 sm:w-16 h-full text-white group-hover:cursor-pointer group-active:text-black/40" />
         </div>
       )}
 
       {!isAtEnd && (
         <div
-          className="absolute top-0 right-0 w-16 h-full bg-black z-50 backdrop-blur-2xl bg-opacity-10 group"
+          className="absolute top-0 right-0 w-8 sm:w-16  h-full bg-black z-50 backdrop-blur-2xl bg-opacity-10 group"
           onClick={scrollRight}
         >
-          <ChevronRight className="w-16 h-full text-white group-hover:cursor-pointer group-active:text-black/40" />
+          <ChevronRight className="w-8 sm:w-16  h-full text-white group-hover:cursor-pointer group-active:text-black/40" />
         </div>
       )}
     </div>

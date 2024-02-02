@@ -92,9 +92,9 @@ const MoviePage: React.FC = () => {
   };
 
   return (
-    <div className="bg-black text-white relative w-full h-screen ">
+    <div className="bg-black text-white relative h-screen ">
       <header
-        className={`sticky z-50 top-0 h-16 w-screen flex items-center justify-between transition-all duration-300 ease-in-out bg-black bg-opacity-${Math.round(
+        className={`sticky z-50 top-0 h-16  flex items-center justify-between transition-all duration-300 ease-in-out bg-black bg-opacity-${Math.round(
           opacity * 100
         )}`}
       >
@@ -125,17 +125,17 @@ const MoviePage: React.FC = () => {
             alt={currentMovie.original_title}
             className="absolute top-0 w-full  h-full object-center object-cover lg:w-full lg:h-full"
           />
-          <div className="absolute top-60 left-10 p-4 bg-black rounded-lg shadow backdrop-blur-sm backdrop-opacity-10 bg-opacity-20 ">
+          <div className="absolute top-60 sm:left-10 p-4 bg-black rounded-lg shadow backdrop-blur-sm backdrop-opacity-10 bg-opacity-20 ">
             <div className="flex flex-1 gap-4 justify-center items-start  ">
               <div className="relative">
                 <img
                   src={`${imageBaseUrl}${currentMovie.poster_path}`}
                   alt={currentMovie.original_title}
-                  className="w-56 h-96 object-center object-cover rounded "
+                  className="sm:w-56 sm:h-96 object-center object-cover rounded "
                 />
               </div>
 
-              <div className="w-96">
+              <div className="sm:w-96">
                 <h1 className="text-4xl text-white font-bold mb-4">
                   {currentMovie.title}
                 </h1>
