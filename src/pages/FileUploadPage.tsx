@@ -5,7 +5,6 @@ import FileUploadManager from "../components/file-upload/FileUploadManager";
 import Button from "../components/form/Button";
 import { FileUploadManagerComponentSource } from "../components/file-upload/FileUploadManagerComponentSource";
 import MarkdownRenderer from "../components/markdown/MarkdownRenderer";
-import CodePreview from "@uiw/react-code-preview";
 
 interface FileUploadPageProps {}
 
@@ -64,21 +63,7 @@ const FileUploadPage: FC<FileUploadPageProps> = ({}) => {
       </h1>
       <div className="relative max-w-md ml-4  sm:max-w-sm  lg:mx-auto lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl ">
         <Browser componentSource={FileUploadManagerComponentSource}>
-          <CodePreview
-            noCode={true}
-            noScroll={true}
-            code={` 
-   import ReactDOM from 'react-dom/client';
-
-    ReactDOM.createRoot(_mount_).render(
- <div  >
-      <FileUpload />
-  </div>
-    );
-  
-   `}
-            dependencies={{ FileUpload }}
-          />
+          <FileUpload />
         </Browser>
       </div>
       <MarkdownRenderer

@@ -38,14 +38,14 @@ const ListViewPage: FC<ListViewPageProps> = () => {
       headers={[
         {
           key: "image",
-          show: false,
+          sortable: false,
           label: "Image",
-          isImage: true,
           render: (value) => <img src={value} />,
         },
         {
           key: "rooms",
           label: "Rooms",
+          sortable: true,
           render: (value) => <span className="font-bold">{value}</span>,
         },
         {
@@ -55,7 +55,6 @@ const ListViewPage: FC<ListViewPageProps> = () => {
           render: (value) => <span>{value}</span>,
         },
       ]}
-      onSortChange={(sort) => console.log(sort)}
       sortOptions={{
         direction: "ascending",
         property: "rooms",
@@ -65,22 +64,28 @@ const ListViewPage: FC<ListViewPageProps> = () => {
 
   return (
     <Layout onThePageNavigationLinks={links}>
-      <h1>ListViewPage</h1>
-      <Browser componentSource={listViewComponentSource}>
-        <CodePreview
-        theme="dark"
-        className="w-2/4"
-          code={`import ReactDOM from 'react-dom/client';
-   ReactDOM.createRoot(_mount_).render(
- <MemorizeListView />
-   );`}
-          dependencies={{ MemorizeListView }}
-        />
+      <div className="flex flex-col gap-6">
+      <h1 className="text-4xl font-bold leading-6 text-primary pt-2">
+          List View
+        </h1>
+        <p className="pt-2">
+          The ListView component is a generic component that can be used to
+          display a list of items. It is a highly customizable component that
+          can be used to display any type of data. The ListView component is
+          designed to be used in conjunction with the Table component to display
+          data in a tabular format. The ListView component is highly
+          customizable and can be used to display data in a variety of formats.
+        </p>
+        
+        <Browser componentSource={listViewComponentSource}>
+        <MemorizeListView />
       </Browser>
       <MarkdownRenderer
         markdownText={markdown}
         onLinksFounded={onLinksFounded}
       />
+      </div>
+     
     </Layout>
   );
 };

@@ -7,6 +7,7 @@ import { listViewComponentSource } from "../components/lists/listViewComponentSo
 import Browser from "../components/browser/browser";
 import CodePreview from "@uiw/react-code-preview";
 import VideoPlayer from "../components/video-player/video-player";
+import { videoPlayerComponentSource } from "../components/video-player/videoPlayerComponentSource";
 
 interface ListViewPageProps {}
 
@@ -19,7 +20,7 @@ const VideoPlayerPage: FC<ListViewPageProps> = () => {
     }[]
   >([]);
   useEffect(() => {
-    fetch("/nexwind-components/docs/ui/list-view.md")
+    fetch("/nexwind-components/docs/ui/videoplayer.md")
       .then((response) => response.text())
       .then((text) => setMarkdown(text));
   }, []);
@@ -34,30 +35,29 @@ const VideoPlayerPage: FC<ListViewPageProps> = () => {
   };
 
   const MemorizeVideoPlayer = React.memo(() => (
-    <VideoPlayer src="https://kan11w.media.kan.org.il/hls/live/2105694/2105694/master.m3u8"/>
-    
+    <VideoPlayer
+      src="https://cnn-cnninternational-1-eu.rakuten.wurl.tv/playlist.m3u8"
+      title="CNN"
+      subtitle="CNN International Europe"
+    />
   ));
 
   return (
     <Layout onThePageNavigationLinks={links}>
-      <h1>Video Player Page</h1>
-      <Browser componentSource={listViewComponentSource}>
-        {/* <CodePreview
-        theme="dark"
-        className="w-2/4"
-          code={`import ReactDOM from 'react-dom/client';
-   ReactDOM.createRoot(_mount_).render(
- <MemorizeVideoPlayer />
-   );`}
-          dependencies={{ MemorizeVideoPlayer }}
-        />
-      </Browser> */}
-        <VideoPlayer src="https://www.youtube.com/watch?v=Xii9_oWQ7HY"/>
+      <div className=" flex flex-col gap-6">
+        <h1>Video Player Page</h1>
+        <Browser componentSource={videoPlayerComponentSource}>
+          <VideoPlayer src="https://www.youtube.com/watch?v=Xii9_oWQ7HY" />
         </Browser>
-      <MarkdownRenderer
-        markdownText={markdown}
-        onLinksFounded={onLinksFounded}
-      />
+
+        <Browser componentSource={videoPlayerComponentSource}>
+          <MemorizeVideoPlayer />
+        </Browser>
+        <MarkdownRenderer
+          markdownText={markdown}
+          onLinksFounded={onLinksFounded}
+        />
+      </div>
     </Layout>
   );
 };

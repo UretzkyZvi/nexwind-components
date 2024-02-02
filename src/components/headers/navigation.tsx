@@ -50,7 +50,11 @@ const NavigationComponents = [
   {
     name: "Video Player",
     href: `${basePath}/video-player`,
-  }
+  },
+  {
+    name: "Image Annotation",
+    href: `${basePath}/image-annotation`,
+  },
 ];
 
 const Navigation: FC = () => {

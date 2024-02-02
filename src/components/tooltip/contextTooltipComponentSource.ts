@@ -1,3 +1,4 @@
+export const contextTooltipComponentSource = `
 import { de } from "@faker-js/faker";
 import React, { useState, useEffect, useRef, FC } from "react";
 type TooltipDirection = "top" | "bottom" | "left" | "right";
@@ -75,16 +76,16 @@ const ContextTooltip: FC<ContextTooltipProps> = ({
     let position: React.CSSProperties = { position: "absolute" };
     switch (direction) {
       case "top":
-        position.bottom = `${childRect.height + offset}px`;
+        position.bottom = \`\${childRect.height + offset}px\`;
         break;
       case "bottom":
-        position.top = `${childRect.height + offset}px`;
+        position.top = \`\${childRect.height + offset}px\`;
         break;
       case "left":
-        position.right = `${childRect.width + offset}px`;
+        position.right = \`\${childRect.width + offset}px\`;
         break;
       case "right":
-        position.left = `${childRect.width + offset}px`;
+        position.left = \`\${childRect.width + offset}px\`;
         break;
     }
 
@@ -121,3 +122,4 @@ const ContextTooltip: FC<ContextTooltipProps> = ({
 };
 
 export default ContextTooltip;
+`;

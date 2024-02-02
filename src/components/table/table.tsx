@@ -1,32 +1,151 @@
 import {
   BookImage,
   ChevronDownIcon,
-  ChevronLeftSquare,
-  ChevronRightSquare,
   ChevronUpIcon,
   ChevronsUpDown,
-  TestTube2,
+  ChevronLeftSquare, 
+  ChevronRightSquare,
   Table as TableIcon,
+  Shapes,
 } from "lucide-react";
-import React, { useMemo, useState } from "react";
-
-// Define a generic interface for table columns
-export interface TableColumn<T> {
-  key: keyof T;
-  title: string;
-  sortable?: boolean;
-  filterable?: boolean;
-  hidden?: boolean;
-  render?: (item: T) => React.ReactNode; // Optional custom renderer
-}
-
-interface PaginationProps {
+import React, { FC, useMemo, useState } from "react";
+ 
+const TableEmpty:FC = () => {
+  return (
+    <div className="flex flex-col items-center">
+      <Shapes strokeWidth={0.75} className="h-32 w-32" />
+      <span className="text-sm font-medium  ">No data found</span>
+    </div>
+  );
+};
+export interface PaginationProps {
   currentPage: number;
   totalPages: number;
   itemsPerPage?: number;
   itemsPerPageOptions?: number[];
   onPageChange: (page: number) => void;
   onItemsPerPageChange?: (itemsPerPage: number) => void;
+}
+
+const TablePagination: FC<PaginationProps> = ({
+  currentPage,
+  totalPages,
+  itemsPerPage,
+  itemsPerPageOptions,
+  onPageChange,
+  onItemsPerPageChange,
+}) => {
+  const getPaginationRange = (currentPage: number, totalPages: number) => {
+    const delta = 2; // how many pages to show before and after the current page
+    const range = [];
+
+    for (
+      let i = Math.max(2, currentPage - delta);
+      i <= Math.min(totalPages - 1, currentPage + delta);
+      i++
+    ) {
+      range.push(i);
+    }
+
+    if (currentPage - delta > 2) {
+      range.unshift("...");
+    }
+    if (currentPage + delta < totalPages - 1) {
+      range.push("...");
+    }
+
+    range.unshift(1);
+    if (totalPages > 1) {
+      range.push(totalPages);
+    }
+    return range;
+  };
+
+  return (
+    <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+      <div className="flex flex-1 justify-between sm:hidden">
+        <button
+          onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
+          className="relative inline-flex items-center   bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+        >
+          <ChevronLeftSquare strokeWidth={1.25} />
+        </button>
+        <button
+          onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
+          className="relative ml-3 inline-flex items-center  bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+        >
+          <ChevronRightSquare strokeWidth={1.25} />
+        </button>
+      </div>
+      <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+        {itemsPerPage && (
+          <div className="flex items-center space-x-2">
+            <span className="text-sm text-gray-700">Show:</span>
+            <select
+              value={itemsPerPage}
+              onChange={(e) =>
+                onItemsPerPageChange?.(parseInt(e.target.value, 10))
+              }
+              className="relative w-full cursor-pointer rounded-md border-none  bg-white py-1.5 pl-3 
+                      pr-10 text-left text-gray-900  ring-1  ring-gray-200 focus:outline-none focus:ring-2
+                       focus:ring-primary  sm:text-sm sm:leading-6"
+            >
+              {itemsPerPageOptions?.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        <div>
+          <nav
+            className="relative z-0 inline-flex -space-x-px rounded-md shadow-sm"
+            aria-label="Pagination"
+          >
+            {getPaginationRange(currentPage, totalPages).map((page, index) => {
+              if (page === "...") {
+                return (
+                  <span
+                    key={index}
+                    className="border-gray-300 px-4 py-2 text-sm font-medium text-gray-500"
+                  >
+                    ...
+                  </span>
+                );
+              }
+              return (
+                <button
+                  key={index}
+                  onClick={() => onPageChange(page as number)}
+                  className={`border-gray-300 px-4 py-2 text-sm font-medium ${
+                    currentPage === page
+                      ? "bg-primary text-white"
+                      : "bg-white text-gray-500 hover:bg-gray-50"
+                  }`}
+                >
+                  {page}
+                </button>
+              );
+            })}
+          </nav>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+ 
+
+// Define a generic interface for table columns
+export interface TableColumn<T> {
+  sourceKey: keyof T;
+  key: string;
+  title: string;
+  sortable?: boolean;
+  filterable?: boolean;
+  hidden?: boolean;
+  render?: (item: T) => React.ReactNode; // Optional custom renderer
 }
 
 interface TableProps<T> {
@@ -57,7 +176,7 @@ const Table = <T extends {}>({
     value: "",
   });
   const [viewMode, setViewMode] = useState<"table" | "gallery">(
-    defaultViewMode
+    defaultViewMode,
   );
 
   const toggleViewMode = () => {
@@ -136,42 +255,16 @@ const Table = <T extends {}>({
       if (key === "image") {
         return (
           <img
-            className="object-none object-center bg-gray-300 w-24"
+            className="w-24 bg-gray-300 object-none object-center"
             src={cellValue as string}
             alt={`Image ${key}`}
           />
         );
       }
-      return <div className="w-48">{cellValue.toString()}</div>;
+      return <div className="w-full">{cellValue.toString()}</div>;
     }
     return null;
   }
-
-  const getPaginationRange = (currentPage: number, totalPages: number) => {
-    const delta = 2; // how many pages to show before and after the current page
-    const range = [];
-
-    for (
-      let i = Math.max(2, currentPage - delta);
-      i <= Math.min(totalPages - 1, currentPage + delta);
-      i++
-    ) {
-      range.push(i);
-    }
-
-    if (currentPage - delta > 2) {
-      range.unshift("...");
-    }
-    if (currentPage + delta < totalPages - 1) {
-      range.push("...");
-    }
-
-    range.unshift(1);
-    if (totalPages > 1) {
-      range.push(totalPages);
-    }
-    return range;
-  };
 
   return (
     <div className="flex flex-col">
@@ -241,9 +334,9 @@ const Table = <T extends {}>({
               <span className="flex items-center gap-2 ">
                 Switch to
                 {viewMode === "table" ? (
-                  <BookImage className="w-4 h-4 text-gray-300" />
+                  <BookImage className="h-4 w-4 text-gray-300" />
                 ) : (
-                  <TableIcon className="w-4 h-4 text-gray-300" />
+                  <TableIcon className="h-4 w-4 text-gray-300" />
                 )}
               </span>
             </button>
@@ -251,74 +344,66 @@ const Table = <T extends {}>({
           </div>
         </div>
       </div>
-      <div className=" max-h-[76dvh] overflow-auto ">
+      <div className="max-h-[76dvh] overflow-auto ">
         {viewMode === "table" ? (
           <table className="min-w-full divide-y  divide-gray-200">
-            <thead className="sticky top-0 bg-gray-50  ">
+            <thead className="sticky top-0 z-10 bg-gray-50 ">
               <tr>
-                {columns.map((column) => (
-                  <>
-                    {column.hidden ? null : (
-                      <th
-                        key={column.key as string}
-                        onClick={() =>
-                          column.sortable && requestSort(column.key)
-                        }
-                        className={` px-2 py-1 text-left text-xs font-medium uppercase tracking-wider text-gray-500 sm:px-6 sm:py-3 ${
-                          column.sortable ? "cursor-pointer" : ""
-                        }`}
-                      >
-                        <div className="flex flex-row">
-                          {column.title}
-                          {column.sortable &&
-                            sortConfig.key === column.key &&
-                            (sortConfig.direction === "ascending" ? (
-                              <ChevronUpIcon className="h-4 w-4" />
-                            ) : (
-                              <ChevronDownIcon className="h-4 w-4" />
-                            ))}
-                          {column.sortable && sortConfig.key !== column.key && (
-                            <ChevronsUpDown className="h-4 w-4" />
-                          )}
-                        </div>
-                      </th>
-                    )}
-                  </>
-                ))}
+                {columns.map((column) =>
+                  column.hidden ? null : (
+                    <th
+                      key={column.key as string}
+                      onClick={() =>
+                        column.sortable && requestSort(column.sourceKey)
+                      }
+                      className={` px-2 py-1 text-left text-xs font-medium uppercase tracking-wider text-gray-500 sm:px-6 sm:py-3 ${
+                        column.sortable ? "cursor-pointer" : ""
+                      }`}
+                    >
+                      <div className="flex flex-row">
+                        {column.title}
+                        {column.sortable &&
+                          sortConfig.key === column.key &&
+                          (sortConfig.direction === "ascending" ? (
+                            <ChevronUpIcon className="h-4 w-4" />
+                          ) : (
+                            <ChevronDownIcon className="h-4 w-4" />
+                          ))}
+                        {column.sortable && sortConfig.key !== column.key && (
+                          <ChevronsUpDown className="h-4 w-4" />
+                        )}
+                      </div>
+                    </th>
+                  ),
+                )}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 overflow-y-auto  bg-white">
               {sortedAndFilteredData.length > 0 ? (
-                sortedAndFilteredData.map((item, index) => (
-                  <tr key={'sorted_tr_'+index}>
-                    {columns.map(({ key, render, hidden }) => (
-                      <>
-                        {hidden ? null : (
-                          <td
-                            key={key as string}
-                            className=" text-wrap px-2  text-xs sm:px-6 sm:py-4"
-                          >
-                            {render
-                              ? render(item)
-                              : formatCell(item[key], key as string)}
-                          </td>
-                        )}
-                      </>
-                    ))}
+                sortedAndFilteredData.map((item, rowIndex) => (
+                  <tr key={"tr" + rowIndex}>
+                    {columns.map(({ sourceKey, key, render, hidden }) =>
+                      hidden ? null : (
+                        <td
+                          key={`${key as string}-${rowIndex}`}
+                          className="text-wrap px-2 text-center text-xs sm:px-4 sm:py-2 "
+                        >
+                          {render
+                            ? render(item)
+                            : formatCell(item[sourceKey], key as string)}
+                        </td>
+                      ),
+                    )}
                   </tr>
                 ))
               ) : (
-                <tr>
+                <tr key={"empty_tr"}>
                   <td
+                    key={"empty_td"}
                     colSpan={columns.length}
                     className="text-center text-gray-500  md:h-[70dvh]"
                   >
-                    <div className="flex flex-col items-center">
-                      <TestTube2 strokeWidth={0.75} className="h-32 w-32" />
-                      <span className="text-sm font-medium  ">
-                        No data found
-                      </span>
-                    </div>
+                    <TableEmpty key={"empty_table"} />
                   </td>
                 </tr>
               )}
@@ -326,42 +411,43 @@ const Table = <T extends {}>({
           </table>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               {sortedAndFilteredData.map((item, index) => (
                 <div
                   key={index}
-                  className="max-w-sm rounded overflow-hidden shadow-lg bg-white"
+                  className="max-w-sm overflow-hidden rounded bg-white shadow-lg"
                 >
-                  {columns.map(({ key, render, hidden }) => (
-                    <>
-                      {key === "image" ? (
-                        <div className="flex justify-center">
-                          {render ? (
-                            render(item)
-                          ) : (
-                            <img
-                              className="w-full h-48 object-fill hover:scale-105 transition-all duration-300 ease-in-out"
-                              src={item[key] as string}
-                              alt={`${key as string} ${index}`}
-                            />
-                          )}
+                  {columns.map(({ sourceKey, key, render, hidden, title }) =>
+                    key === "image" ? (
+                      <div key={key} className="flex justify-center">
+                        {render ? (
+                          render(item)
+                        ) : (
+                          <img
+                            className="h-48 w-full object-fill transition-all duration-300 ease-in-out hover:scale-105"
+                            src={item[sourceKey] as string}
+                            alt={`${key as string} ${index}`}
+                          />
+                        )}
+                      </div>
+                    ) : hidden ? null : (
+                      <div
+                        key={key as string}
+                        className=" text-wrap px-2 py-1 text-xs sm:px-6 sm:py-2"
+                      >
+                        <div className="flex flex-col space-y-2">
+                          <div className="text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                            {title}
+                          </div>
+                          <div className="text-black font-bold">
+                            {render
+                              ? render(item)
+                              : formatCell(item[sourceKey], key as string)}
+                          </div>
                         </div>
-                      ) : (
-                        <>
-                          {hidden ? null : (
-                            <div
-                              key={key as string}
-                              className=" text-wrap px-2 py-1 text-xs sm:px-6 sm:py-4"
-                            >
-                              {render
-                                ? render(item)
-                                : formatCell(item[key], key as string)}
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </>
-                  ))}
+                      </div>
+                    ),
+                  )}
                 </div>
               ))}
             </div>
@@ -370,89 +456,14 @@ const Table = <T extends {}>({
       </div>
       <div>
         {pagination && (
-          <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-            <div className="flex flex-1 justify-between sm:hidden">
-              <button
-                onClick={() =>
-                  pagination.onPageChange(
-                    Math.max(pagination.currentPage - 1, 1)
-                  )
-                }
-                className="relative inline-flex items-center   bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-              >
-                <ChevronLeftSquare strokeWidth={1.25} />
-              </button>
-              <button
-                onClick={() =>
-                  pagination.onPageChange(
-                    Math.min(pagination.currentPage + 1, pagination.totalPages)
-                  )
-                }
-                className="relative ml-3 inline-flex items-center  bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-              >
-                <ChevronRightSquare strokeWidth={1.25} />
-              </button>
-            </div>
-            <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-              {pagination.itemsPerPage && (
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm text-gray-700">Show:</span>
-                  <select
-                    value={pagination.itemsPerPage}
-                    onChange={(e) =>
-                      pagination.onItemsPerPageChange?.(
-                        parseInt(e.target.value, 10)
-                      )
-                    }
-                    className="relative w-full cursor-pointer rounded-md border-none  bg-white py-1.5 pl-3 
-                      pr-10 text-left text-gray-900  ring-1  ring-gray-200 focus:outline-none focus:ring-2
-                       focus:ring-primary  sm:text-sm sm:leading-6"
-                  >
-                    {pagination.itemsPerPageOptions?.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-              <div>
-                <nav
-                  className="relative z-0 inline-flex -space-x-px rounded-md shadow-sm"
-                  aria-label="Pagination"
-                >
-                  {getPaginationRange(
-                    pagination.currentPage,
-                    pagination.totalPages
-                  ).map((page, index) => {
-                    if (page === "...") {
-                      return (
-                        <span
-                          key={index}
-                          className="border-gray-300 px-4 py-2 text-sm font-medium text-gray-500"
-                        >
-                          ...
-                        </span>
-                      );
-                    }
-                    return (
-                      <button
-                        key={index}
-                        onClick={() => pagination.onPageChange(page as number)}
-                        className={`border-gray-300 px-4 py-2 text-sm font-medium ${
-                          pagination.currentPage === page
-                            ? "bg-primary text-white"
-                            : "bg-white text-gray-500 hover:bg-gray-50"
-                        }`}
-                      >
-                        {page}
-                      </button>
-                    );
-                  })}
-                </nav>
-              </div>
-            </div>
-          </div>
+          <TablePagination
+            currentPage={pagination.currentPage}
+            totalPages={pagination.totalPages}
+            itemsPerPage={pagination.itemsPerPage}
+            itemsPerPageOptions={pagination.itemsPerPageOptions}
+            onPageChange={pagination.onPageChange}
+            onItemsPerPageChange={pagination.onItemsPerPageChange}
+          />
         )}
       </div>
     </div>

@@ -37,16 +37,16 @@ const Browser: FC<BrowserProps> = ({ children, componentSource }) => {
         copyToClipboard={() => copyToClipboard(componentSource)}
       />
 
-      <div className="flex flex-col m-auto my-6 flex-grow">
+      <div className="flex flex-col my-6  ">
         <Tabs titles={["Preview", "Code"]} onTabChange={setTabIndex}>
           {/* Preview Tab */}
 
-          <div className="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl">{children}</div>
+          <div className="p-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl flex-grow">{children}</div>
           </div>
 
           {/* Code Tab */}
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className=" px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-3xl">
     
               <CodeTab componentSource={componentSource} />

@@ -7,6 +7,7 @@ interface ModalProps {
   onClose: () => void;
   title?: string;
   description?: string;
+  className?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -15,6 +16,7 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   title,
   description,
+  className
 }) => {
   if (!isOpen) {
     return null;
@@ -29,7 +31,7 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 overflow-y-auto"
+      className="fixed inset-0 z-50 overflow-y-auto "
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
@@ -41,14 +43,14 @@ const Modal: React.FC<ModalProps> = ({
       <div className="flex   min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
         {/* Modal panel */}
         <div
-          className="relative max-w-2xl my-auto transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full    sm:p-6"
+          className={`relative max-w-2xl my-auto transform overflow-hidden rounded-lg px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:p-6 ${className ? className : "bg-white"}`}
           style={{
             transition: "opacity 0.3s ease-out, transform 0.3s ease-out",
             opacity: isOpen ? 1 : 0,
             transform: isOpen ? "translateY(0)" : "translateY(-20px)",
           }}
         >
-          <div className="bg-white pb-4 sm:pb-4">
+          <div className="  pb-4 sm:pb-4">
             <div className="flex flex-row  justify-between">
               <div className="flex flex-col">
                 <h3

@@ -51,7 +51,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onMovieSelect }) => {
           <MovieCardPortal>
             <div
               style={calculatePosition() as React.CSSProperties}
-              className="absolute z-50"
+              className="absolute z-20"
             >
               <MovieCardHovered movie={movie} />
             </div>

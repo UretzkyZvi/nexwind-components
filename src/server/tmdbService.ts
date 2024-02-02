@@ -41,7 +41,7 @@ export const fetchMovieImages = async (id: number) => {
     return response.json() as Promise<MovieImages>;
 }
 
-export const fetchMovieVideos = async (id: string) => {
+export const fetchMovieVideos = async (id: number) => {
     const response = await fetch(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}`);
     if (!response.ok) {
         throw new Error('Failed to fetch movie videos');

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import ListView from "../components/lists/ListView";
 import Layout from "../components/layout/Layout";
 import Browser from "../components/browser/browser";
@@ -7,6 +7,10 @@ import { generateHouseData } from "../util/MockData";
 import Button from "../components/form/Button";
 import ContextTooltip from "../components/tooltip/ContextTooltip";
 import CodePreview from "@uiw/react-code-preview";
+import MarkdownRenderer from "../components/markdown/MarkdownRenderer";
+import { BugIcon } from "lucide-react";
+import { contextTooltipComponentSource } from "../components/tooltip/contextTooltipComponentSource";
+import { buttonComponentSource } from "../components/form/buttonComponentSource";
 
 interface HomePageProps {}
 interface Item {
@@ -14,8 +18,29 @@ interface Item {
   name: string;
 }
 const FormPage: FC<HomePageProps> = ({}) => {
+  const [markdown, setMarkdown] = useState("");
+  const [links, setLinks] = useState<
+    {
+      id: string;
+      text: string;
+    }[]
+  >([]);
+  useEffect(() => {
+    fetch("/nexwind-components/docs/ui/form-items.md")
+      .then((response) => response.text())
+      .then((text) => setMarkdown(text));
+  }, []);
+
+  const onLinksFounded = (
+    links: {
+      id: string;
+      text: string;
+    }[]
+  ) => {
+    setLinks(links);
+  };
   return (
-    <Layout>
+    <Layout onThePageNavigationLinks={links}>
       <div className="flex flex-col">
         <div>
           <h1 className="text-4xl font-bold leading-6  ">Forms</h1>
@@ -31,52 +56,9 @@ const FormPage: FC<HomePageProps> = ({}) => {
             form, opening a dialog, canceling an action, or performing a delete
             operation.
           </p>
-          <div className="pt-2">
-               <CodePreview
-        
-               theme="dark"
-              code={`import Button from "../components/form/Button"
-          import ReactDOM from 'react-dom/client';
-          ReactDOM.createRoot(_mount_).render(
-            <div className="grid grid-cols-12 gap-4">
-            <div className="col-span-12 md:col-span-4">
-              <Button size="xs">
-                <span>Submit</span>
-              </Button>
-            </div>
-            <div className="col-span-12 md:col-span-4">
-              <Button size="md">
-                <span>Submit</span>
-              </Button>
-            </div>
-            <div className="col-span-12 md:col-span-4">
-              <Button size="lg">
-                <span>Submit</span>
-              </Button>
-            </div>
-            <div className="col-span-12 md:col-span-4">
-              <Button size="xl">
-                <span>Submit</span>
-              </Button>
-            </div>
-            <div className="col-span-12 md:col-span-4">
-              <Button size="2xl">
-                <span>Submit</span>
-              </Button>
-            </div>
-            <div className="col-span-12 md:col-span-4">
-              <Button size="3xl">
-                <span>Submit</span>
-              </Button>
-            </div>
-          </div>
-          );`}
-              dependencies={{ Button }}
-            />
- 
-          </div>
+
           <div className="pt-2  ">
-            <Browser componentSource={listViewComponentSource}>
+            <Browser componentSource={buttonComponentSource}>
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-12 md:col-span-4">
                   <Button size="xs">
@@ -121,7 +103,7 @@ const FormPage: FC<HomePageProps> = ({}) => {
             operation.
           </p>
           <div className="pt-2  ">
-            <Browser componentSource={listViewComponentSource}>
+            <Browser componentSource={buttonComponentSource}>
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-12 md:col-span-4">
                   <Button variant="primary">
@@ -176,7 +158,7 @@ const FormPage: FC<HomePageProps> = ({}) => {
             field or action.
           </p>
           <div className="pt-2  ">
-            <Browser componentSource={listViewComponentSource}>
+            <Browser componentSource={contextTooltipComponentSource}>
               <div className="flex flex-col justify-around md:flex-row items-center md:justify-between gap-4">
                 <div className="m-6">
                   <ContextTooltip
@@ -221,9 +203,31 @@ const FormPage: FC<HomePageProps> = ({}) => {
                 </ContextTooltip>
               </div>
             </Browser>
+            <div className="pt-2">
+              <Browser componentSource={contextTooltipComponentSource}>
+                <ContextTooltip
+                  message="Click for action"
+                  expandedContent={<p>More detailed information here.</p>}
+                  preferredDirection="right"
+                >
+                  <Button
+                    variant="primary"
+                    size="md"
+                    icon={<BugIcon />}
+                    onClick={() => console.log("Action performed")}
+                  >
+                    Hover & Click
+                  </Button>
+                </ContextTooltip>
+              </Browser>
+            </div>
           </div>
         </div>
       </div>
+      <MarkdownRenderer
+        markdownText={markdown}
+        onLinksFounded={onLinksFounded}
+      />
     </Layout>
   );
 };

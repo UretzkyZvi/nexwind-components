@@ -40,7 +40,7 @@ const HomePage: FC<HomePageProps> = ({}) => {
             headers={[
               {
                 key: "image",
-                show: false,
+                
                 label: "Image",
                 render: (value) => <img className="w-28 h-20" src={value} />,
               },

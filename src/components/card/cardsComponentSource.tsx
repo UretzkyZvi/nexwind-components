@@ -1,4 +1,4 @@
-import { FC } from "react";
+export const cardsComponentSource = `import { FC } from "react";
 
 interface CardProps {
   children: React.ReactNode;
@@ -7,7 +7,7 @@ interface CardProps {
 const Card: FC<CardProps> = ({ children, className }) => {
   return (
     <div
-      className={`max-w-sm  mx-auto bg-white shadow-lg border border-gray-200 rounded-lg overflow-hidden ${className}`}
+      className={\`max-w-sm  mx-auto bg-white shadow-lg border border-gray-200 rounded-lg overflow-hidden \${className}\`}
     >
       {children}
     </div>
@@ -177,7 +177,6 @@ interface CardWithImageBodyProps {
   imageAlt?: string;
   title?: string;
   text?: string;
-  onClick?: () => void;
 }
 const CardWithImageBody: FC<CardWithImageBodyProps> = ({
   className,
@@ -185,11 +184,10 @@ const CardWithImageBody: FC<CardWithImageBodyProps> = ({
   imageAlt,
   title,
   text,
-  onClick
 }) => {
   return (
-    <Card className={`relative w-full min-h-48 group ` + className}>
-      <div onClick={onClick} className="hover:cursor-pointer">
+    <Card className={\`relative w-full min-h-48 group \` +className}>
+ 
         <img
           src={
             imageSrc ? imageSrc : "https://picsum.photos/seed/picsum/640/440"
@@ -209,7 +207,7 @@ const CardWithImageBody: FC<CardWithImageBodyProps> = ({
             </div>
           </div>
         </div>
-      </div>
+    
     </Card>
   );
 };
@@ -220,3 +218,4 @@ export {
   CardWithImageHeaderAndFooter,
   CardWithImageBody,
 };
+`;

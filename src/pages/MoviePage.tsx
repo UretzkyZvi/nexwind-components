@@ -1,18 +1,36 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   backdropBaseUrl,
+  fetchMovieVideos,
   fetchMoviesByCategory,
   imageBaseUrl,
+  youtubeBaseUrl,
 } from "../server/tmdbService";
 import CategoryRow from "../components/showcase/movie/CategoryRow";
 import { Movie } from "../components/showcase/movie/type";
 import clsx from "clsx";
-import { Play } from "lucide-react";
+import { Play, Video } from "lucide-react";
+import Modal from "../components/modals/modal";
+import VideoPlayer from "../components/video-player/video-player";
+
+type MovieVideo = {
+  id: string;
+  iso_639_1: string;
+  iso_3166_1: string;
+  key: string;
+  name: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: string;
+};
 
 const MoviePage: React.FC = () => {
   const [currentMovie, setCurrentMovie] = useState<Movie>();
-
+  const [openModal, setOpenModal] = useState(false);
   const [opacity, setOpacity] = useState(0);
+  const [movieVideos, setMovieVideos] = useState<MovieVideo[]>([]);
   const [categories, setCategories] = useState([
     { title: "Popular", query: "popular", movies: [] },
     { title: "Top Rated", query: "top_rated", movies: [] },
@@ -63,6 +81,14 @@ const MoviePage: React.FC = () => {
     };
   }, []);
 
+  const handleSelectedMovie = async (movie: Movie) => {
+    setCurrentMovie(movie);
+    setOpenModal(true);
+    const videos = await fetchMovieVideos(movie.id);
+    console.log(videos);
+    setMovieVideos(videos.results);
+  };
+
   return (
     <div className="bg-black text-white relative w-full h-screen ">
       <header
@@ -70,7 +96,9 @@ const MoviePage: React.FC = () => {
           opacity * 100
         )}`}
       >
-        <div className="px-4"></div>
+        <div className="px-4 inline-flex items-center text-red-500 font-bold text-lg">
+          Next Movie
+        </div>
       </header>
       {currentMovie && (
         <>
@@ -114,10 +142,34 @@ const MoviePage: React.FC = () => {
             key={index}
             title={category.title}
             movies={category.movies}
-            onMovieSelect={(m) => setCurrentMovie(m)}
+            onMovieSelect={(m) => {
+              handleSelectedMovie(m);
+            }}
           />
         ))}
       </main>
+
+      <Modal
+        isOpen={openModal}
+        onClose={() => setOpenModal(false)}
+        className="bg-black "
+      >
+        <div className="flex flex-col gap-4">
+          {movieVideos && (
+            <VideoPlayer
+              src={
+                movieVideos.find((x) => x.official)?.site.toLowerCase() ===
+                "youtube"
+                  ? youtubeBaseUrl + movieVideos.find((x) => x.official)?.key
+                  : ""	
+              }
+              
+            />
+          )}
+          <div className="text-lg font-bold leading-6">Movie Details</div>
+          <div className="text-sm  ">{currentMovie?.overview}</div>
+        </div>
+      </Modal>
     </div>
   );
 };

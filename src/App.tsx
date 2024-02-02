@@ -11,6 +11,7 @@ import MoviePage from "./pages/MoviePage";
 import CardsPage from "./pages/CardsPage";
 import Showcase from "./pages/Showcase";
 import VideoPlayerPage from "./pages/VideoPlayerPage";
+import ImageAnnotationPage from "./pages/ImageAnnotationPage";
 
 function App() {
   return (
@@ -24,11 +25,12 @@ function App() {
         <Route path="/table" element={<TablePage />} />
         <Route path="/file-uploader" element={<FileUploadPage />} />
         <Route path="/contribute" element={<ContributePage />} />
-        <Route path="/video-player" element={<VideoPlayerPage/>} />
+        <Route path="/video-player" element={<VideoPlayerPage />} />
         <Route path="/showcase/movie-browse" element={<MoviePage />} />
         <Route path="/cards" element={<CardsPage />} />
-        <Route path="/showcase" element={<Showcase/>} />
-       
+        <Route path="/showcase" element={<Showcase />} />
+        <Route path="/image-annotation" element={<ImageAnnotationPage />} />
+
         <Route path="*" element={<h1>Not Found</h1>} />
         {/* Add more routes as needed */}
       </Routes>

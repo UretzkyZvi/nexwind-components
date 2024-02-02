@@ -6,11 +6,32 @@ import {
   createMockTravelDestinations,
 } from "../util/MockData";
 import Table, { TableColumn } from "../components/table/table";
-import CodePreview from "@uiw/react-code-preview";
-
-import { listViewComponentSource } from "../components/lists/listViewComponentSource";
+import MarkdownRenderer from "../components/markdown/MarkdownRenderer";
+import { tableComponentSource } from "../components/table/tableComponentSource";
 
 const TablePage = () => {
+  const [markdown, setMarkdown] = useState("");
+  const [links, setLinks] = useState<
+    {
+      id: string;
+      text: string;
+    }[]
+  >([]);
+  useEffect(() => {
+    fetch("/nexwind-components/docs/ui/table.md")
+      .then((response) => response.text())
+      .then((text) => setMarkdown(text));
+  }, []);
+
+  const onLinksFounded = (
+    links: {
+      id: string;
+      text: string;
+    }[]
+  ) => {
+    setLinks(links);
+  };
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -39,15 +60,19 @@ const TablePage = () => {
       key: "image",
       title: "Image",
       sortable: false,
+      sourceKey: "image",
     },
     {
       key: "id",
+      sourceKey: "id",
       title: "ID",
       hidden: true,
+
       render: (item) => <span>{item.id}</span>,
     },
     {
       key: "title",
+      sourceKey: "title",
       title: "Title",
       sortable: true,
       filterable: true,
@@ -57,6 +82,7 @@ const TablePage = () => {
     },
     {
       key: "description",
+      sourceKey: "description",
       title: "Description",
       filterable: true,
       render: (item) => (
@@ -83,19 +109,22 @@ const TablePage = () => {
   ));
 
   return (
-    <Layout>
-      <h1>Table Page</h1>
-
-      <Browser componentSource="">
-        <CodePreview
-          code={`import Button from "../components/form/Button"
-   import ReactDOM from 'react-dom/client';
-   ReactDOM.createRoot(_mount_).render(
-    <MemoizedTable />
-   );`}
-          dependencies={{ MemoizedTable }}
-        />
+    <Layout onThePageNavigationLinks={links}>
+      <h1 className="text-4xl font-bold leading-6 text-primary pt-2">Table</h1>
+      <p className="pt-2 leading-6">
+        The Table component is a highly customizable component that can be used
+        to display tabular data. The Table component is designed to be used in
+        conjunction with the ListView component to display data in a tabular
+        format. The Table component is highly customizable and can be used to
+        display data in a variety of formats.
+      </p>
+      <Browser componentSource={tableComponentSource}>
+        <MemoizedTable />
       </Browser>
+      <MarkdownRenderer
+        markdownText={markdown}
+        onLinksFounded={onLinksFounded}
+      />
     </Layout>
   );
 };

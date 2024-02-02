@@ -1,3 +1,4 @@
+export const videoPlayerComponentSource = `
 import React, { useState, useRef, useEffect, FC } from "react";
 import Hls, { Level } from "hls.js";
 import {
@@ -20,7 +21,6 @@ interface VideoPlayerProps {
 const VideoPlayer: FC<VideoPlayerProps> = ({ src,title,subtitle }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
-
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
   const [progress, setProgress] = useState(0);
@@ -36,7 +36,6 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ src,title,subtitle }) => {
   const [showQualityMenu, setShowQualityMenu] = useState(false);
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
   const [showMultiLevelMenu, setShowMultiLevelMenu] = useState(false);
-
   const extractYouTubeID = (url: string) => {
     const id = url.split("v=")[1];
     return id ? id : url.split("/").pop();
@@ -119,7 +118,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ src,title,subtitle }) => {
     if (!document.fullscreenElement && video) {
       video.requestFullscreen().catch((err) => {
         console.error(
-          `Error attempting to enable full-screen mode: ${err.message}`
+          \`Error attempting to enable full-screen mode: \${err.message}\`
         );
       });
     } else {
@@ -139,7 +138,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ src,title,subtitle }) => {
       }
     } catch (error) {
       console.error(
-        `Error attempting to toggle Picture-in-Picture mode: ${error}`
+        \`Error attempting to toggle Picture-in-Picture mode: \${error}\`
       );
     }
   };
@@ -196,8 +195,8 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ src,title,subtitle }) => {
     }
 
     if (tooltip && rect) {
-      tooltip.style.left = `${e.pageX - rect.left}px`;
-      tooltipRef.current.style.backgroundImage = `url(${thumbnailDataUrl})`;
+      tooltip.style.left = \`\${e.pageX - rect.left}px\`;
+      tooltipRef.current.style.backgroundImage = \`url(\${thumbnailDataUrl})\`;
       tooltipRef.current.style.backgroundSize = "cover";
     }
   };
@@ -213,7 +212,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ src,title,subtitle }) => {
     if (time !== null) {
       const minutes = Math.floor(time / 60);
       const seconds = Math.floor(time % 60);
-      return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+      return \`\${minutes}:\${seconds < 10 ? "0" : ""}\${seconds}\`;
     }
     return "";
   };
@@ -255,12 +254,9 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ src,title,subtitle }) => {
     }
   }, [src]);
 
-
- 
-
   const renderVideoPlayer = () => {
     if (isYouTubeVideo && youTubeVideoId) {
-      return <YouTube   videoId={youTubeVideoId}  />;
+      return <YouTube videoId={youTubeVideoId} /* YouTube Player Props */ />;
     } else {
       return (
         <>
@@ -301,7 +297,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ src,title,subtitle }) => {
                   >
                     <div
                       className="h-2 bg-gray-600"
-                      style={{ width: `${progress}%` }}
+                      style={{ width: \`\${progress}%\` }}
                     ></div>
                     {showTooltip && (
                       <div
@@ -439,3 +435,4 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ src,title,subtitle }) => {
 };
 
 export default VideoPlayer;
+`;

@@ -54,11 +54,11 @@ const Layout: FC<LayoutProps> = ({ children, onThePageNavigationLinks }) => {
 
       <Header setOpenSidebar={setOpenSidebar} />
       <div className="mx-auto max-w-7xl grow lg:flex xl:px-2">
-        <div className="flex-1  flex">
+        <div className="flex">
           <div className="hidden md:block border-r border-gray-200 px-4 py-6 sm:px-6  sm:w-80 xl:w-64 lg:pl-8 xl:shrink-0 xl:border-b-0 xl:pl-6">
             <Navigation />
           </div>
-          <div className="px-2 sm:py-6 sm:px-6 md:pl-6 xl:pl-6">
+          <div className="max-w-4xl px-2 sm:py-6 sm:px-6 md:pl-6 xl:pl-6">
             {children}
           </div>
         </div>
