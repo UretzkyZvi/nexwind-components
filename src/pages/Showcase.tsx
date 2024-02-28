@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Showcase: FC = () => {
   const navigate = useNavigate();
   const handleCardClick = () => {
-    navigate('/showcase/movie-browse'); 
+    navigate("/showcase/movie-browse");
   };
   return (
     <LayoutShowcase>
@@ -20,9 +20,17 @@ const Showcase: FC = () => {
           <li className="  px-8 py-10">
             <CardWithImageBody
               text="Explore the movie browse page."
-              onClick={()=>handleCardClick()}
+              onClick={() => handleCardClick()}
               imageSrc="images/movie-browse.gif"
-              className="w-full text-white bg-gray-900 rounded-lg shadow-lg"
+            />
+          </li>
+          <li className="  px-8 py-10">
+            <CardWithImageBody
+              text="Explore the real estate page."
+              onClick={() =>
+                (window.location.href = "https://anyoneforfun.vercel.app/")
+              }
+              imageSrc="images/real-estate.gif"
             />
           </li>
         </ul>

@@ -198,12 +198,13 @@ const CardWithImageBody: FC<CardWithImageBodyProps> = ({
           className="  top-0  w-full  object-cover  group-hover:scale-125 transition-all duration-300 ease-in-out"
           style={{ height: "200px" }}
         />
-        <div className="absolute bottom-0 p-4 ">
+        <div className="absolute bottom-0 h-12 p-2 backdrop-blur-sm  bg-white/30 w-full "></div>
+        <div className="absolute bottom-0 p-2 bg-black/50 shadow-md w-full ">
           <div className="flex flex-col gap-4">
             <div className="text-lg font-bold leading-6">
               {title ? title : ""}
             </div>
-            <div className="text-sm  ">{text ? text : " "}</div>
+            <div className="text-sm text-white ">{text ? text : " "}</div>
           </div>
         </div>
       </div>

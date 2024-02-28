@@ -7,7 +7,7 @@ import TablePage from "./pages/TablePage";
 import IntroductionPage from "./pages/Introduction";
 import FileUploadPage from "./pages/FileUploadPage";
 import ContributePage from "./pages/ContributePage";
-import MoviePage from "./pages/MoviePage";
+import MoviePage from "./pages/showcases/MoviePage";
 import CardsPage from "./pages/CardsPage";
 import Showcase from "./pages/Showcase";
 import VideoPlayerPage from "./pages/VideoPlayerPage";
@@ -27,11 +27,13 @@ function App() {
         <Route path="/file-uploader" element={<FileUploadPage />} />
         <Route path="/contribute" element={<ContributePage />} />
         <Route path="/video-player" element={<VideoPlayerPage />} />
-        <Route path="/showcase/movie-browse" element={<MoviePage />} />
         <Route path="/cards" element={<CardsPage />} />
-        <Route path="/showcase" element={<Showcase />} />
         <Route path="/image-annotation" element={<ImageAnnotationPage />} />
         <Route path="/contact" element={<Contact />} />
+
+        <Route path="/showcase" element={<Showcase />} />
+        <Route path="/showcase/movie-browse" element={<MoviePage />} />
+        
         <Route path="*" element={<h1>Not Found</h1>} />
         {/* Add more routes as needed */}
       </Routes>

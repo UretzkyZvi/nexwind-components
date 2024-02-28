@@ -18,7 +18,7 @@ const Layout: FC<LayoutProps> = ({ children, onThePageNavigationLinks }) => {
 
   return (
     <div
-      className={`flex min-h-full flex-col bg-background dark:bg-dark-background`}
+      className={`flex min-h-full flex-col bg-background font-sans `}
     >
       {openSidebar && (
         <div

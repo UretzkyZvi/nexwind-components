@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import MovieCard from "./MovieCard";
 import { Movie } from "./type"; // Import the Movie type accordingly
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
+import { ScrollArea, ScrollBar } from "../../ui/scroll-area";
 type CategoryRowProps = {
   title: string;
   movies: Movie[];
@@ -12,7 +12,7 @@ type CategoryRowProps = {
 const CategoryRow: React.FC<CategoryRowProps> = ({
   title,
   movies,
-  onMovieSelect,
+  onMovieSelect
 }) => {
   const [isAtStart, setIsAtStart] = useState(true);
   const [isAtEnd, setIsAtEnd] = useState(false);
@@ -26,7 +26,8 @@ const CategoryRow: React.FC<CategoryRowProps> = ({
 
   const checkScrollPosition = () => {
     if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const { scrollLeft, scrollWidth, clientWidth } =
+        scrollContainerRef.current;
       setIsAtStart(scrollLeft === 0);
       setIsAtEnd(scrollLeft >= scrollWidth - clientWidth);
     }
@@ -58,7 +59,7 @@ const CategoryRow: React.FC<CategoryRowProps> = ({
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({
         left: -200, // Adjust scroll amount as needed
-        behavior: "smooth",
+        behavior: "smooth"
       });
     }
   };
@@ -67,7 +68,7 @@ const CategoryRow: React.FC<CategoryRowProps> = ({
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({
         left: 200, // Adjust scroll amount as needed
-        behavior: "smooth",
+        behavior: "smooth"
       });
     }
   };
@@ -90,25 +91,39 @@ const CategoryRow: React.FC<CategoryRowProps> = ({
   return (
     <div className="relative" id={title}>
       <h2 className="text-sm sm:text-md md:text-lg font-bold mb-4">{title}</h2>
-      <div
-        className="flex overflow-x-scroll snap-x snap-mandatory touch-pan-x space-x-4 p-4"
-        ref={scrollContainerRef}
-        onScroll={checkScrollPosition}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-      >
-        {movies.map((movie, index) => (
-          <MovieCard key={index} movie={movie} onMovieSelect={handleSelectedMovie} />
-        ))}
-      </div>
+      <ScrollArea className=" whitespace-nowrap rounded-md ">
+        <div
+          className="relative flex snap-x snap-mandatory touch-pan-x space-x-4 p-4"
+          ref={scrollContainerRef}
+          onScroll={checkScrollPosition}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {movies.map((movie, index) => (
+            <MovieCard
+              key={index}
+              movie={movie}
+              onMovieSelect={handleSelectedMovie}
+            />
+          ))}
+        </div>
+
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
       {!isAtStart && (
-        <div className="absolute top-0 -left-1 w-8 sm:w-16 h-full bg-black z-10 backdrop-blur-lg bg-opacity-5 group" onClick={scrollLeft}>
+        <div
+          className="absolute top-0 -left-1 w-8 sm:w-16 h-full bg-black z-50 backdrop-blur-lg bg-opacity-5 group"
+          onClick={scrollLeft}
+        >
           <ChevronLeft className="w-8 sm:w-16 h-full text-white group-hover:cursor-pointer group-active:text-black/40" />
         </div>
       )}
       {!isAtEnd && (
-        <div className="absolute top-0 -right-1 w-8 sm:w-16 h-full bg-black z-10 backdrop-blur-2xl bg-opacity-10 group" onClick={scrollRight}>
+        <div
+          className="absolute top-0 -right-1 w-8 sm:w-16 h-full bg-black z-50 backdrop-blur-2xl bg-opacity-10 group"
+          onClick={scrollRight}
+        >
           <ChevronRight className="w-8 sm:w-16 h-full text-white group-hover:cursor-pointer group-active:text-black/40" />
         </div>
       )}
